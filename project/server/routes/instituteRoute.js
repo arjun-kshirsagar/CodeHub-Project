@@ -1,47 +1,13 @@
 const router = require('express').Router();
-const Theatre = require('../models/theatreModel');
+const Theatre = require('../models/instituteModel');
 
-router.post('/add-theatre',  async (req, res) => {
+router.post('/add-institute',  async (req, res) => {
     try{
-        const newTheatre = new Theatre(req.body);
-        await newTheatre.save();
+        const newInstitue = new Institue(req.body);
+        await newInstitue.save();
         res.send({
             success: true,
-            message: "New theatre has been added!"
-        })
-    }catch(err){
-        res.send({
-            success: false,
-            message: err.message
-        })
-    }
-});
-
-// Get all theatres for Admin route
-router.get('/get-all-theatres', async (req, res) => {
-    try{
-        const allTheatres = await Theatre.find().populate('owner');
-        res.send({
-            success: true,
-            message: "All theatres fetched!",
-            data: allTheatres
-        });
-    }catch(err){
-        res.send({
-            success: false,
-            message: err.message
-        });
-    }
-});
-
-// Get the theatres of a specific owner
-router.post('/get-all-theatres-by-owner',  async (req, res) => {
-    try{
-        const allTheatres = await Theatre.find({owner: req.body.owner});
-        res.send({
-            success: true,
-            message: "All theatres fetched successfully!",
-            data: allTheatres
+            message: "New institue has been added!"
         })
     }catch(err){
         res.send({
@@ -52,14 +18,14 @@ router.post('/get-all-theatres-by-owner',  async (req, res) => {
 });
 
 
-// Update theatre
-router.put('/update-theatre',  async (req, res) => {
+// Update institute
+router.put('/update-institute',  async (req, res) => {
     try{
-        await Theatre.findByIdAndUpdate(req.body.theatreId, req.body);
+        await Institue.findByIdAndUpdate(req.body.institueId, req.body);
         // console.log(req.body.theatreId)
         res.send({
             success: true,
-            message: "Theatre has been updated!"
+            message: "Institute has been updated!"
         })
     }catch(err){
         res.send({
@@ -69,13 +35,13 @@ router.put('/update-theatre',  async (req, res) => {
     }
 })
 
-// Delete theatre
-router.put('/delete-theatre', async (req, res) => {
+// Delete institute
+router.put('/delete-institute', async (req, res) => {
     try{
-        await Theatre.findByIdAndDelete(req.body.theatreId);
+        await Institue.findByIdAndDelete(req.body.institueId);
         res.send({
             success: true,
-            message: "The theatre has been deleted!"
+            message: "The institute has been deleted!"
         })
     }catch(err){
         res.send({
